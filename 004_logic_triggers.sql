@@ -1,26 +1,23 @@
--- =============================================
--- Amikor a felhasznalo meghallgat egy zenet 
--- akkor novekszik a stream_count a songs tablaba
--- =============================================
+  -- =============================================
+  -- Amikor a felhasznalo meghallgat egy zenet 
+  -- akkor novekszik a stream_count a songs tablaba
+  -- =============================================
 
-create or replace trigger trg_update_stream_count
-after insert on streams
-for each row
-begin
-  update songs
-  set songs.stream_count = songs.stream_count + 1
-  where songs.song_id = :NEW.song_id;
-end;
-/
+  CREATE OR REPLACE TRIGGER trg_update_stream_count
+  AFTER INSERT ON streams
+  FOR EACH ROW
+BEGIN
+  UPDATE songs
+     SET songs.stream_count = songs.stream_count + 1
+   WHERE songs.song_id = :new.song_id;
+END;
+  /
 
--- =============================================
--- Amikor a felhasznalo hozzaad egy zenet az 
--- albumhoz akkor frissul az updated_at rekord
--- =============================================
-create or replace trigger trg_albums_updated_at
-before update on albums
-for each row
-begin
-  :NEW.updated_at := sysdate;
-end;
+  -- =============================================
+  -- Amikor a felhasznalo hozzaad egy zenet az 
+  -- albumhoz akkor frissul az updated_at rekord
+  -- =============================================
+  CREATE OR REPLACE TRIGGER trg_albums_updated_at
+  BEFORE UPDATE ON albums
+  FOR EACH ROW BEGIN :new.updated_at := SYSDATE; END;
 /
