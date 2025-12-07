@@ -1,25 +1,22 @@
-create or replace package pkg_user_manager is
+CREATE OR REPLACE PACKAGE pkg_user_manager IS
 
-       procedure register_user(
-         p_first_name in users.first_name%type,
-         p_last_name in users.last_name%type,
-         p_username in users.username%type,
-         p_email in users.email%type,
-         p_password in users.password%type
-       );
+  PROCEDURE register_user(p_first_name IN users.first_name%TYPE
+                         ,p_last_name  IN users.last_name%TYPE
+                         ,p_username   IN users.username%TYPE
+                         ,p_email      IN users.email%TYPE
+                         ,p_password   IN users.password%TYPE);
 
-       procedure register_as_artist(
-         p_first_name in users.first_name%type,
-         p_last_name in users.last_name%type,
-         p_username in users.username%type,
-         p_email in users.email%type,
-         p_password in users.password%type,
-         p_role in users.role%type
-       );
+  PROCEDURE register_as_artist(p_first_name IN users.first_name%TYPE
+                              ,p_last_name  IN users.last_name%TYPE
+                              ,p_username   IN users.username%TYPE
+                              ,p_email      IN users.email%TYPE
+                              ,p_password   IN users.password%TYPE
+                              ,p_role       IN users.role%TYPE);
 
-       procedure follow_artist(user_id number, artist_id number);
-       procedure delete_user(user_id number);
+  PROCEDURE follow_artist(user_id   NUMBER
+                         ,artist_id NUMBER);
+  PROCEDURE delete_user(user_id NUMBER);
 
-       function get_artist_followers(artist_id number) return varchar2;
+  FUNCTION get_artist_followers(artist_id NUMBER) RETURN VARCHAR2;
 
-end pkg_user_manager;
+END pkg_user_manager;
