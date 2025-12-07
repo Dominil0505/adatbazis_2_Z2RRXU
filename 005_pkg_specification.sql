@@ -17,6 +17,11 @@ create or replace package pkg_music_manager is
          p_artist_id in artists.artist_id%type
        );
        
+       procedure share_album(
+         p_album_id in albums.album_id%type,
+         p_user_id in users.user_id%type
+       );
+       
        function get_playlist_duration(p_playlist_id number) return number;
        function get_albums_with_song_names(album_id number) return varchar2;
        function find_album_with_song_names(song_name varchar2) return varchar2;
