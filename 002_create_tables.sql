@@ -1,6 +1,6 @@
-/*
-       USERS table
-*/
+-- =============================================
+-- USERS (Felhasznolok)
+-- ============================================
 create table users (
        user_id number primary key,
        first_name varchar2(50) not null,
@@ -20,9 +20,9 @@ create index idx_username on users(username);
 
 comment on table users is 'Felhasznalokat tarolja';
 
-/*
-       ARTISTS table
-*/
+-- =============================================
+-- ARTISTS (Eloadok)
+-- =============================================
 create table artists (
        artist_id number primary key,
        name varchar2(50) not null,
@@ -41,9 +41,9 @@ create index idx_artist_name on artists(name);
 
 comment on table artists is 'Eloadokat tarolja';
 
-/*
-       ALBUMS table
-*/
+-- =============================================
+-- ALBUMS (Albumok)
+-- =============================================
 create table albums (
        album_id number primary key,
        title varchar2(200) not null,
@@ -62,9 +62,9 @@ create index idx_album_title on albums(title);
 
 comment on table albums is 'Az eloadohoz tartozo albumot tarolja';
 
-/*
-       SONGS table
-*/
+-- =============================================
+-- SONGS (Zenek)
+-- =============================================
 create table songs (
        song_id number primary key,
        title varchar2(200) not null,
@@ -80,9 +80,9 @@ create table songs (
 
 comment on table songs is 'Eloado dalait tarolja';
 
-/*
-       GENRES table
-*/
+-- =============================================
+-- GENRES (Mufaj)
+-- =============================================
 create table genres(
        genre_id number primary key,
        name varchar2(50) not null,
@@ -94,9 +94,9 @@ create index idx_genre_name on genres(name);
 comment on table genres is 'Zene mufajait tarolja';
 
 
-/*
-       SONGS - GENRES table
-*/
+-- =============================================
+-- SONGS - GENRES (Zenehez tartozo mufaj)
+-- =============================================
 create table songs_genres(
        song_id number not null,
        genre_id number not null,
@@ -114,9 +114,9 @@ create table songs_genres(
 
 comment on table songs_genres is 'A zenehez tartozo mufaj kapcsolo tablaja N:M';
 
-/*
-       PLAYLISTS table
-*/
+-- =============================================
+-- PLAYLISTS (Lejatszasi lista)
+-- =============================================
 
 create table playlists (
        playlist_id number primary key,
@@ -136,9 +136,9 @@ create index idx_playlist_title on playlists(title);
 
 comment on table playlists is 'Felhasznalo altal letrehozott lejatszasi lista';
 
-/* 
-       PLAYLISTS - SONGS table
-*/
+-- ===================================================
+-- PLAYLIST_SONGS (Lejatszasi listahoz tartozo zenek)
+-- ===================================================
 
 create table playlists_songs(
        playlist_id number not null,
@@ -159,9 +159,9 @@ create table playlists_songs(
 ) tablespace users;
 comment on table playlists_songs is 'Felhasznalo altal letrehozott lejatszasi listaban levo zenek';
 
-/*
-       USER FOLLOWS ARTISTS table
-*/
+-- =============================================
+-- USER_FOLLOWS_ARTIST
+-- =============================================
 
 create table user_follows_artists(
        user_id number not null,
@@ -182,9 +182,9 @@ create table user_follows_artists(
 comment on table user_follows_artists is 'Felhasznalo altal kovetett eloadok';
 
 
-/*
-       STREAMS table
-*/
+-- =============================================
+-- STREAMS (Naplozas)
+-- =============================================
 
 create table streams (
        stream_id number primary key,
@@ -200,11 +200,11 @@ create table streams (
                   references songs(song_id)
                   on delete cascade
 ) tablespace users;
-comment on table streams is 'Felhasznalo jelenlegi lejatszasa';
+comment on table streams is 'Minden egyes zene lejatszast rogzit. LOG tabla';
 
-/*
-       PLAYLIST_COLLABORATORS table
-*/
+-- =========================================================
+-- PLAYLIST_COLLABORATORS (Megosztott lejatszatsi lista)
+-- =========================================================
 
 create table playlist_collaborators(
       playlist_id number,
