@@ -1,10 +1,11 @@
 -- =============================================
--- Amikor a felhasználó meghallgat egy zenét 
--- akkor növekszik a stream_count a songs táblába
+-- Amikor a felhasznalo meghallgat egy zenet 
+-- akkor novekszik a stream_count a songs tablaba
 -- =============================================
 
 create or replace trigger trg_update_stream_count
 after insert on streams
+for each row
 begin
   update songs
   set songs.stream_count = songs.stream_count + 1
@@ -13,13 +14,13 @@ end;
 /
 
 -- =============================================
--- Amikor a felhasználó hozzáad egy zenét az 
--- albumhoz akkor frissül az updated_at rekord
+-- Amikor a felhasznalo hozzaad egy zenet az 
+-- albumhoz akkor frissul az updated_at rekord
 -- =============================================
 create or replace trigger trg_albums_updated_at
-after update on albums
+before update on albums
 for each row
 begin
-  :new.updated_at := sysdate;
+  :NEW.updated_at := sysdate;
 end;
 /
